@@ -12,6 +12,11 @@ let statusUpdate = document.querySelectorAll(`#book_state`);
 let card = document.querySelectorAll(`.card`);
 
 
+
+const readColor = `linear-gradient(156deg, #b3f6d8 0%, #03191e 74%)`;
+const unreadColor = `linear-gradient(156deg, rgb(11 4 4) 0%, #d6d6d6 74%)`;
+
+
 function Book(titleIn, authorIn, pagesIn, statusIn){
     this.title = titleIn;
     this.author = authorIn;
@@ -66,8 +71,11 @@ function fill_page(){
     container.innerHTML = add;
     removeBook = document.querySelectorAll(`.remove`);
     card = document.querySelectorAll(`.card`);
-   
 
+    card.forEach(c => {
+        if(myLibrary[c.dataset.id].status)
+            c.style.backgroundImage = readColor;
+    });
     removeBook.forEach(book=> book.addEventListener('click', ()=>{
         myLibrary.splice(book.dataset.id,1);
         fill_page();
@@ -85,12 +93,12 @@ function fill_page(){
         })
             if(state){
                 read--;
-                switchcard.style.backgroundImage = `linear-gradient(156deg, rgb(19 19 20) 0%, #f6fdff 74%)`;
+                switchcard.style.backgroundImage = unreadColor;
                 switchcard.style.color = `white`;
             }
             else{
             
-            switchcard.style.backgroundImage = `linear-gradient(156deg, #ffffff 0%, rgb(0 127 68) 74%)`;
+            switchcard.style.backgroundImage = readColor;
                 switchcard.style.color = `white`;
                 read++;
             }
