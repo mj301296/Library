@@ -40,21 +40,29 @@
         </div>
     </div> -->
     <main>
-    <div class="header transparent">
+    <div class="header">
         <div class="logo"><h1>Library</h1></div>
         <div class="mid"></div>
         <div class="library_log">
             <h2 class="log_text"> Library Log</h2>
-                <h3>Total books :</h3>
+                <div>Total books :</div>
                 <span id="total_count">0</span>
-                <h3>Read :</h3>
+                <div>Read :</div>
                 <span id="read_count">0</span>
-                <h3>Unread :</h3>
+                <div>Unread :</div>
                 <span id="unread_count">0</span>
         </div>
     </div>
     <div class="status_bar">
-        <div class="order_by"></div>
+        <div class="order_head">Order By</div>
+        <div class="order_content">
+        <select class="types">
+            <option value="name">Name</option>
+            <option value="author">Author</option>
+            <option value="pages">Pages</option>
+        </select>
+        <button type="submit">Sort</button>
+        </div>
     </div>
     <div class="container"></div>
     <div class="add"><button class="add_button">+</button></div>

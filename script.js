@@ -9,6 +9,7 @@ const closeForm = document.querySelector(`.close`);
 const submitForm = document.querySelector(`.submit_form`);
 let removeBook = document.querySelectorAll(`.remove`);
 let statusUpdate = document.querySelectorAll(`#book_state`);
+let card = document.querySelectorAll(`.card`);
 
 
 function Book(titleIn, authorIn, pagesIn, statusIn){
@@ -19,19 +20,18 @@ function Book(titleIn, authorIn, pagesIn, statusIn){
 }
 
 
-// function add_book(){
-//     const newBook = new Book("GOT", "MARTIN", 250, true);
-//     myLibrary.push(newBook);
-// }
+function add_book(){
+    const newBook = new Book("GOT", "MARTIN", 250, true);
+    myLibrary.push(newBook);
+}
 
 
-// add_book();
-// add_book();
-// add_book();
-// add_book();
-// add_book();
-// console.log(myLibrary);
-// fill_page();
+add_book();
+add_book();
+add_book();
+add_book();
+add_book();
+fill_page();
 
 
 
@@ -46,21 +46,29 @@ function fill_page(){
                 read++;
             if(myLibrary[i].status)
                 checked = "checked";
-        add+=`<div class="card transparent">
+        add+=`<div class="card transparent" data-id=${i}>
                 <h1> ${myLibrary[i].title}</h2>
                 <h3> author: ${myLibrary[i].author}</h2>
                 <h3> pages: ${myLibrary[i].pages}</h2>
+                <div class= icons>
+                <h4>Unread</h4>
                 <label class="switch">
+                
                 <input id="book_state" type="checkbox" ${checked} data-id=${i}>
                 <span class="slider round"></span>
-                </label>
+                
+                </label><h4>Read</h4>
+                
                 <button class="remove" data-id=${i}>Remove</button>
+                </div>
               </div>`;
         }
     container.innerHTML = add;
     removeBook = document.querySelectorAll(`.remove`);
+    card = document.querySelectorAll(`.card`);
+   
+
     removeBook.forEach(book=> book.addEventListener('click', ()=>{
-        console.log(book);
         myLibrary.splice(book.dataset.id,1);
         fill_page();
     }))
@@ -68,10 +76,24 @@ function fill_page(){
     statusUpdate = document.querySelectorAll(`#book_state`);
     statusUpdate.forEach(button => button.addEventListener('click', ()=>{
             const state = myLibrary[button.dataset.id].status;
-            if(state)
+            let switchcard = card[0];
+            card.forEach(c=>{
+                   if(c.dataset.id === button.dataset.id)
+                {
+                    switchcard =c;
+                }
+        })
+            if(state){
                 read--;
-            else
+                switchcard.style.backgroundImage = `linear-gradient(156deg, rgb(19 19 20) 0%, #f6fdff 74%)`;
+                switchcard.style.color = `white`;
+            }
+            else{
+            
+            switchcard.style.backgroundImage = `linear-gradient(156deg, #ffffff 0%, rgb(0 127 68) 74%)`;
+                switchcard.style.color = `white`;
                 read++;
+            }
             myLibrary[button.dataset.id].status = !state;
                 readCount.innerHTML = read;
                 unreadCount.innerHTML = myLibrary.length- read;
@@ -91,7 +113,6 @@ closeForm.addEventListener('click',()=>
 );
 
 submitForm.addEventListener('click',()=>{
-    console.log(document.querySelector(".status").checked)
     const newBook = new Book(document.querySelector(".title").value,
     document.querySelector(".author").value,
     document.querySelector(".pages").value,
@@ -104,6 +125,9 @@ submitForm.addEventListener('click',()=>{
     document.querySelector(".status").checked = false;
     modal.style.display = 'none'
 });
+
+
+
 
 
 
