@@ -10,9 +10,6 @@ const submitForm = document.querySelector(`.submit_form`);
 let removeBook = document.querySelectorAll(`.remove`);
 let statusUpdate = document.querySelectorAll(`#book_state`);
 let card = document.querySelectorAll(`.card`);
-
-
-
 const readColor = `linear-gradient(156deg, #b3f6d8 0%, #03191e 74%)`;
 const unreadColor = `linear-gradient(156deg, rgb(11 4 4) 0%, #d6d6d6 74%)`;
 
